@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Online Shopping AdminApps</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="i_agree_the_terms_and_condition">I Agree To The <u>Terms &amp; Condition</u></string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login"><u>Login</u></string>
+    <string name="register">Register</string>
+</resources>
