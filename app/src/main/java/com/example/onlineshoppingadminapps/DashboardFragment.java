@@ -17,10 +17,12 @@ import com.example.onlineshoppingadminapps.callbacks.OnCheckAdminUserListener;
 import com.example.onlineshoppingadminapps.callbacks.OnQueryItemSelectedCompletedListener;
 import com.example.onlineshoppingadminapps.databinding.FragmentDashboardBinding;
 import com.example.onlineshoppingadminapps.models.DashboardItem;
+import com.example.onlineshoppingadminapps.repositories.AdminRepository;
 import com.example.onlineshoppingadminapps.utils.Constants;
 import com.example.onlineshoppingadminapps.viewmodels.LoginViewModel;
 
-public class DashboardFragment extends Fragment implements OnQueryItemSelectedCompletedListener, OnCheckAdminUserListener {
+public class DashboardFragment extends Fragment implements OnQueryItemSelectedCompletedListener{
+
     private FragmentDashboardBinding binding;
     private LoginViewModel loginViewModel;
     private boolean isCheck;
@@ -43,8 +45,9 @@ public class DashboardFragment extends Fragment implements OnQueryItemSelectedCo
             }
         });
 
+
         final DashboardAdapter adapter;
-        if (isCheck){
+        if (loginViewModel.isCheck()){
             adapter = new DashboardAdapter(DashboardItem.getDashboardItems(), this);
         }else {
             adapter = new DashboardAdapter(DashboardItem.getDashboardItemsUsers(), this);
@@ -79,8 +82,5 @@ public class DashboardFragment extends Fragment implements OnQueryItemSelectedCo
 
 
 
-    @Override
-    public void onAdminOrUserSelect(boolean isCheck) {
-        this.isCheck = isCheck;
-    }
+
 }

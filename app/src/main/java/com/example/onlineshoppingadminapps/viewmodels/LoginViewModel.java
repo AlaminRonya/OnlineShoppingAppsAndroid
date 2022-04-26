@@ -1,6 +1,9 @@
 package com.example.onlineshoppingadminapps.viewmodels;
 
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -22,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginViewModel extends ViewModel {
+    private final String TAG = LoginViewModel.class.getSimpleName();
 
     public enum AuthState{
         AUTHENTICATED,UNAUTHENTICATED
@@ -31,11 +35,10 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> errMsgLiveData;
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private OnCheckAdminUserListener listener;
+    private boolean isCheck;
     private final AdminRepository adminRepository = new AdminRepository();
 
     public LoginViewModel() {
-        this.listener = new DashboardFragment();
         stateLiveData = new MutableLiveData<>();
         errMsgLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
@@ -77,13 +80,8 @@ public class LoginViewModel extends ViewModel {
                             @Override
                             public void onCheckAdmin(boolean status) {
                                 if (status){
-//                                    isAdmin = true;
-                                    listener.onAdminOrUserSelect(true);
-
-                                }else {
-                                    listener.onAdminOrUserSelect(false);
+                                    isCheck = true;
                                 }
-
 
                                 user = authResult.getUser();
                                 stateLiveData.postValue(AuthState.AUTHENTICATED);
@@ -98,7 +96,9 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
-
+    public boolean isCheck() {
+        return isCheck;
+    }
 
     public void register(Users users) {
         auth.createUserWithEmailAndPassword(users.getEmail(), users.getPassword())
